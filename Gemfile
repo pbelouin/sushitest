@@ -20,6 +20,10 @@ group :development, :test do
   gem 'faker'
 end
 
+group :test do 
+  gem 'simplecov', require: false
+end
+
 group :development do
   gem 'web-console'
   gem 'listen', '~> 3.0.5'

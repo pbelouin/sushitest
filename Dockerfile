@@ -1,16 +1,8 @@
 FROM ruby:2.2.4-slim
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
-ENV APP_HOME /myapp
-RUN mkdir $APP_HOME
-WORKDIR $APP_HOME
-
-ADD Gemfile* $APP_HOME/
-
-# --- Add this to your Dockerfile ---
-ENV BUNDLE_GEMFILE=$APP_HOME/Gemfile \
-  BUNDLE_JOBS=2 \
-  BUNDLE_PATH=/bundle
-
+RUN mkdir /myapp
+WORKDIR /myapp
+ADD Gemfile /myapp/Gemfile
+ADD Gemfile.lock /myapp/Gemfile.lock
 RUN bundle install
-
-ADD . $APP_HOME
+ADD . /myapp
