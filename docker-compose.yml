@@ -1,12 +1,22 @@
 db:
   image: postgres
 
+bundle:
+  # 'image' will vary depending on your docker-compose 
+  # project name. You may need to run `docker-compose build web`
+  # before this works.
+  image: busybox
+  command: echo bundle container is up...
+  volumes:
+    - /bundle
 web:
   build: .
   ports:
     - 3000:3000
   volumes:
     - '.:/myapp'
+  volumes_from:
+     - bundle
   command: rails s -b 0.0.0.0
   links:
     - db
